@@ -1,0 +1,12 @@
+# Keep the local Python environment out of Git.
+.venv/
+
+# Ignore generated Python and testing files.
+__pycache__/
+*.pyc
+.pytest_cache/
+.hypothesis/
+
+# Ignore notebook checkpoints and local environment settings.
+.ipynb_checkpoints/
+.env

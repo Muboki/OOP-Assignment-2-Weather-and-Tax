@@ -1,0 +1,12 @@
+{
+  "saved_at_utc": "2026-10-10T09:21:56.323714+00:00",
+  "location_query": "Kampala",
+  "selected_location": "Kampala",
+  "latitude": 0.31628,
+  "longitude": 32.58219,
+  "sources": [
+    "https://geocoding-api.open-meteo.com/v1/search",
+    "https://api.open-meteo.com/v1/forecast"
+  ],
+  "note": "Saved API responses for offline testing; not a live forecast."
+}
