@@ -5,8 +5,7 @@ This repository contains my work for the Advent 2026 Python assignment.
 ## Project status
 
 - Mini-Project 1: Weather Forecast — implemented and tested.
-- Mini-Project 2: Uganda Tax Engine — not yet implemented.
-
+- Mini-Project 2: Uganda Tax Engine — implemented and tested.
 ## Folder structure
 
 - `notebooks/`: executable notebooks, explanations and results.
@@ -137,3 +136,77 @@ I used ChatGPT for step-by-step guidance on code structure,
 HTTP requests, error handling, testing and interpretation.
 I ran the code and tests locally, checked the outputs and used
 the explanations to revise the implementation.
+
+## Uganda Tax Engine
+
+Open `notebooks/project2_tax.ipynb` and select the project's `.venv`
+kernel. Use Restart followed by Run All to execute the notebook.
+This project runs offline; its documented tax schedules are stored
+in the implementation.
+
+Reusable code is in `src/tax.py`. It includes Decimal-based Money
+objects, an abstract Tax interface, PAYE, payroll, VAT, corporate
+income tax and a TaxPlanner for comparing salary offers.
+
+### Main findings
+
+- Resident PAYE on UGX 1,650,000 chargeable monthly income:
+  UGX 383,250.
+- Non-resident PAYE on the same income: UGX 420,500.
+- With an illustrative UGX 25,000 LST deduction, the resident
+  payroll produces net pay of UGX 1,166,750.
+- The sample VAT invoices produce UGX 108,000 payable after
+  deducting only eligible input VAT.
+- Annual revenue of UGX 250 million less UGX 175 million in
+  allowable deductions produces corporate tax of UGX 22.5 million.
+- A UGX 300,000 increase in basic monthly pay raises net pay by
+  UGX 195,000 and employer cost by UGX 330,000 in the example.
+
+### Testing
+
+```powershell
+# Run the tax tests.
+.\.venv\Scripts\python.exe -m pytest tests/test_tax.py -q
+```
+
+The 18 tax test cases passed. They include PAYE boundary checks,
+Hypothesis property-based tests, payroll and VAT calculations,
+corporate tax, the planner extension and selected validation errors.
+
+### Scope and assumptions
+
+The implementation supports calculation dates from 1 July 2026
+to 30 June 2027. This is a software scope boundary, not a legislative
+expiry date.
+
+Money uses Decimal and ROUND_HALF_UP to two decimal places.
+Float conversion is limited to plotting completed results;
+a separate demonstration deliberately illustrates float inaccuracies.
+
+The payroll model assumes NSSF coverage and taxable cash allowances.
+LST is supplied for the particular month rather than assessed
+automatically. Employee NSSF does not reduce PAYE chargeable income.
+
+VAT classifications and input-credit eligibility must be supplied
+correctly. Corporate deductions must already have been assessed
+as allowable. Special tax regimes, mixed-use VAT apportionment,
+loss carry-forwards and prior tax payments are outside the model.
+
+### Official sources
+
+- PAYE schedules:
+  https://ura.go.ug/en/domestic-taxes/paye-rates/
+- Resident PAYE update effective 1 July 2026:
+  https://ura.go.ug/en/changes-to-paye-return-form-following-the-income-tax-amendment-act-2026/
+- Employment income and relief:
+  https://ura.go.ug/en/employment-income/
+- NSSF contributions:
+  https://www.nssfug.org/about-us/membership/
+- VAT:
+  https://ura.go.ug/en/value-added-tax-vat/
+- Corporation tax:
+  https://ura.go.ug/en/corporation-tax/
+
+Sources were checked on 10–11 October 2026. Detailed assumptions
+and explanations appear in the notebook.
+
